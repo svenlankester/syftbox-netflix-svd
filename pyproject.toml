@@ -1,0 +1,32 @@
+[project]
+name = "syftbox-netflix"
+version = "0.1.0"
+description = "SyftBox Netflix"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "python-dotenv==1.0.1",
+    "pandas",
+    "rapidfuzz",
+    "scikit-learn",
+    "selenium",
+    "diffprivlib>=0.6.5",
+    "phe",
+    "matplotlib",
+    "fastsyftbox>=0.1.12",
+    "syft-core>=0.2.5",
+    "jinja2",
+    "sentence-transformers"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+packages = ["syftbox_netflix"]
+
+[tool.hatch.envs.test]
+dependencies = [
+    "pytest",
+]

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix Recommendation Evaluation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #e50914;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 1.5rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .description {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+    .comparison-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .comparison-column {
+      flex: 1 1 450px;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .column-title {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .top-series-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .series-item {
+      width: 90%;
+      max-width: 250px;
+      margin: 0 auto;
+      height: auto;
+      background-color: white;
+      padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .series-item img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      display: block;
+      opacity: 0.85;
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .series-item img:hover {
+      opacity: 1;
+      transform: scale(1.03);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .feedback-button {
+      background-color: #e50914;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: bold;
+      display: block;
+      margin: 0 auto 1rem auto;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+    }
+    .feedback-button:hover {
+      background-color: #ff4d4d;
+      transform: scale(1.05);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+    }
+    .feedback-button:active {
+      background-color: #d40813;
+      transform: scale(0.98);
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 2rem;
+      padding: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .comparison-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .comparison-column {
+        width: 100%;
+        max-width: 500px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Netflix Recommendation Evaluation
+  </header>
+  <div class="container">
+    <div class="description">
+      Let us know which list has TV Series that you would watch next...
+    </div>
+
+    <div class="comparison-container">
+
+      <!-- Raw Personalized Series Column -->
+      <div class="comparison-column">
+        <!-- <div class="column-title">List 2: Based on Your Viewing History</div> -->
+        <!-- <button class="feedback-button" onclick="">I prefer this list</button> -->
+        <div class="top-series-row" id="recommended-series-row">
+          {% for item in raw_recommends %}
+            {% if loop.last and loop.length % 2 == 1 %}
+              <div style="grid-column: span 2; display: flex; justify-content: center;">
+                <div class="series-item">
+                  <img src="{{ item.img }}" alt="{{ item.name }}" onclick="sendChoice({{ item.id }}, 1)">
+                  <div><strong>{{ item.name }}</strong></div>
+                </div>
+              </div>
+          {% else %}
+              <div class="series-item">
+                <img src="{{ item.img }}" alt="{{ item.name }}" onclick="sendChoice({{ item.id }}, 1)">
+                <div><strong>{{ item.name }}</strong></div>
+              </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Reranked Personalized Series Column -->
+      <div class="comparison-column">
+        <!-- <div class="column-title">List 2: Based on Your Viewing History</div> -->
+        <!-- <button class="feedback-button" onclick="">I prefer this list</button> -->
+        <div class="top-series-row" id="recommended-series-row">
+          {% for item in reranked_recommends %}
+          {% if loop.last and loop.length % 2 == 1 %}
+          <div style="grid-column: span 2; display: flex; justify-content: center;">
+            <div class="series-item">
+              <img src="{{ item.img }}" alt="{{ item.name }}" onclick="sendChoice({{ item.id }}, 2)">
+              <div><strong>{{ item.name }}</strong></div>
+            </div>
+          </div>
+          {% else %}
+          <div class="series-item">
+            <img src="{{ item.img }}" alt="{{ item.name }}" onclick="sendChoice({{ item.id }}, 2)">
+            <div><strong>{{ item.name }}</strong></div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+    <div class="footer">
+      Thank you for helping us improve our recommendations! 🚀
+    </div>
+  </div>
+  <script>
+    async function sendChoice(id, column) {
+      const response = await fetch("/choice", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ id: id, column: column })
+      });
+
+      const data = await response.json();
+      //alert(data.message);
+      alert("Nice choice :)");
+    }
+  </script>
+</body>
+</html>
