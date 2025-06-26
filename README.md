@@ -52,7 +52,7 @@ Then clone the app's repository to install the app:
 ### 4. Set Up the Environment
 Configure this app inside SyftBox.
 
-1. Navigate to the `syftbox-netflix` directory:
+1. Navigate to the `syftbox-netflix-svd` directory:
    ```bash
    cd syftbox-netflix-svd
    ```
