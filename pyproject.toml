@@ -24,7 +24,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
-packages = ["syftbox_netflix_bpr"]
+packages = ["syftbox_netflix_svd"]
 
 [tool.hatch.envs.test]
 dependencies = [
