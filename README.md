@@ -73,9 +73,12 @@ Configure this app inside SyftBox.
 
 For MacOS users, you will likely not have your data in /home/.. but instead in /Users/.., make sure to use the correct path.
 
+Now restart Syftbox (close using ``CTRL + C`` and re-run the command to start it) to do the initial training. This will let the aggregator add you to the read-permissions of the global model.
 
 _Note: When running as participant, the initial run will give an error that Global_V.npy could not be found. This will resolve itself once the aggregator has detected your initial run and adds you to the read-permissions of its global model._
 
+You will now need to wait for the aggregator to run the aggregation for the final step.
+
 ### 5. Perform the experiment
 
-After the aggregator has added permissions to the global model for your user (this can take a while, as it depends on the person with the aggregator running the app) a local app will be deployed at ``localhost:8081`` accessible through your browser. Here, for both lists (left and right columns) click on every show you would likely click on as a Netflix user. The app should give a pop-up window to confirm your click. Please only click each item in each list once. If the same item appears in both lists and you intend to click on it, please click on it in both lists.
+After the aggregator has added permissions to the global model for your user (this can take a while, as it depends on the person with the aggregator running the app) a local app will be deployed at ``localhost:<port>`` accessible through your browser. The port used for the app can be found in ``SyftBox/apps/syftbox-netflix-svd/logs/app.log`` in the first few lines as ``<timestamp> [syftbox] App Port: <port>``. Once you can see the app in your browser, for both lists (left and right columns) click on every show you would likely click on as a Netflix user. The app should give a pop-up window to confirm your click. Please only click each item in each list once. If the same item appears in both lists and you intend to click on it, please click on it in both lists.
