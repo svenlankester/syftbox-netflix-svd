@@ -56,7 +56,7 @@ Configure this app inside SyftBox.
    ```bash
    cd syftbox-netflix-svd
    ```
-2. Open the `.env` file in a text editor and **define at least** `OUTPUT_DIR`. This is the directory to make available your `profile_0/NetflixViewingHistory.csv` downloaded manually, if not available, a dummy file will be created. 
+2. Open the `.env` file in a text editor and **define at least** `AGGREGATOR_DATASITE` as `svenlankester@gmail.com` and `OUTPUT_DIR` as the directory to make available your `profile_0/NetflixViewingHistory.csv` downloaded manually, if not available, a dummy file will be created. 
 
 #### A more complete `.env` example:
    ```
@@ -81,4 +81,4 @@ You will now need to wait for the aggregator to run the aggregation for the fina
 
 ### 5. Perform the experiment
 
-After the aggregator has added permissions to the global model for your user (this can take a while, as it depends on the person with the aggregator running the app) you can start SyftBox again using the command and once the app has finished running, a local app will be deployed at ``localhost:<port>`` accessible through your browser. The port used for the app can be found in ``SyftBox/apps/syftbox-netflix-svd/logs/app.log`` in the first few lines as ``<timestamp> [syftbox] App Port: <port>``. Once you can see the app in your browser, for both lists (left and right columns) click on every show you would likely click on as a Netflix user. The app should give a pop-up window to confirm your click. Please only click each item in each list once. If the same item appears in both lists and you intend to click on it, please click on it in both lists.
+After the aggregator has added permissions to the global model for your user (this can take a while, as it depends on the person with the aggregator running the app) you can start SyftBox again using the command and once the app has finished running, a local app will be deployed at ``localhost:<port>`` accessible through your browser. The port used for the app can be found in ``SyftBox/apps/syftbox-netflix-svd/logs/app.log`` in the first few lines as ``<timestamp> [syftbox] App Port: <port>``. If that port does not work, try ``localhost:8081``. If you see "Internal server error" that usually means the app ran correctly, but the aggregator has not given you access to the model yet. Once you can see the app in your browser, for both lists (left and right columns) click on every show you would likely click on as a Netflix user. The app should give a pop-up window to confirm your click. Please only click each item in each list once. If the same item appears in both lists and you intend to click on it, please click on it in both lists.
