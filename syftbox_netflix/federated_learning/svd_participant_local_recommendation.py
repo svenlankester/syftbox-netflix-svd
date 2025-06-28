@@ -17,7 +17,7 @@ def mmr_rerank_predictions(unprocessed_predictions, lambda_param=0.3, top_n=5):
     """
     model = SentenceTransformer("all-MiniLM-L6-v2")  # Fast and good enough for short texts
     titles = [title for title, _, _ in unprocessed_predictions]
-    embeddings = model.encode(titles, convert_to_tensor=False)
+    embeddings = model.encode(titles, convert_to_tensor=False, show_progress_bar=False)
 
     ratings = np.array([pred_rating for _, _, pred_rating in unprocessed_predictions])
     ratings_normalized = (ratings - np.min(ratings)) / (np.max(ratings) - np.min(ratings))
