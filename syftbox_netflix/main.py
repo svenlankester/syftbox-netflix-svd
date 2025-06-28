@@ -57,6 +57,10 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 logger.handlers = [console_handler]
 
+logging.getLogger("transformers").setLevel(logging.WARNING)
+logging.getLogger("sentence_transformers").setLevel(logging.WARNING)
+logging.getLogger("huggingface_hub").setLevel(logging.WARNING)
+
 # Load environment variables
 load_dotenv()
 APP_NAME = os.getenv("APP_NAME", "syftbox-netflix-svd")
