@@ -71,7 +71,6 @@ Configure this app inside SyftBox.
    NETFLIX_CSV="NetflixViewingHistory.csv"               # Mandatory
    OUTPUT_DIR="/home/<your-username>/Downloads/"         # Mandatory
    AGGREGATOR_DATA_DIR="data/"                           # Mandatory
-   SYFTBOX_ASSIGNED_PORT="<port>"
    ```
 
 For MacOS users, you will likely not have your data in /home/.. but instead in /Users/.., make sure to use the correct path.
@@ -84,7 +83,10 @@ You will now need to wait for the aggregator to run the aggregation for the fina
 
 ### 5. Perform the experiment
 
-After the aggregator has added permissions to the global model for your user (this can take a while, as it depends on the person with the aggregator running the app) you can start SyftBox again using the command and once the app has finished running, a local app will be deployed at ``localhost:<port>`` accessible through your browser. The port used for the app can be found in ``SyftBox/apps/syftbox-netflix-svd/logs/app.log`` in the first few lines as ``<timestamp> [syftbox] App Port: <port>``. If that port does not work, try ``localhost:8081``. If you see "Internal server error" that usually means the app ran correctly, but the aggregator has not given you access to the model yet. Once you can see the app in your browser, for both lists (left and right columns) click on every show you would likely click on as a Netflix user. The app should give a pop-up window to confirm your click. Please only click each item in each list once. If the same item appears in both lists and you intend to click on it, please click on it in both lists.
+After the aggregator has added permissions to the global model for your user (this can take a while, as it depends on the person with the aggregator running the app. I try to run it every minute so try to restart syftbox after a minute or 2) you can start SyftBox again using the command and once the app has finished running, a local app will be deployed at ``localhost:8081`` accessible through your browser. Once you can see the app in your browser, for both lists (left and right columns) click on every show you would likely click on as a Netflix user. The app should give a pop-up window to confirm your click. Please only click each item in each list once. If the same item appears in both lists and you intend to click on it, please click on it in both lists.
+
+
+_if port 8081 does not work (`internal server error` means that it works, but there is no data for the page to load), go to ``SyftBox/apps/syftbox-netflix-svd/logs/app.log, open the log and look at the top lines to find a line saying the port SyftBox is running on. Try that one instead_
 
 
 💡 _If something is not working as expected, have a look at `syftbox-netflix-svd/logs/app.log` to see the error (ignore any chromedriver-related errors)_ 
