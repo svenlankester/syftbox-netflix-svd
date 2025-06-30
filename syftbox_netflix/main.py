@@ -148,7 +148,7 @@ def main(profile, profile_id):
         "uvicorn", "app:app",
         "--reload",
         "--host", "0.0.0.0",
-        "--port", 8081
+        "--port", "8081"
     ]
 
     # Run it from the script's directory
